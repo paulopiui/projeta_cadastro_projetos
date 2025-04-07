@@ -3,7 +3,3 @@ os
 pandas
 streamlit
 supabase
-
-dash
-plotly
-gunicorn
