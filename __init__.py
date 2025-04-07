@@ -1,1 +1,0 @@
-# Este arquivo indica que "pages" é um módulo Python
