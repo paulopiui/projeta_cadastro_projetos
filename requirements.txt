@@ -2,7 +2,3 @@ os
 pandas
 streamlit
 supabase
-utils
-time
-bcrypt
-Modal
