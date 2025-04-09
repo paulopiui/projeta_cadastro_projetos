@@ -193,15 +193,18 @@ with col77:
 
 with col78:    
     df = pd.DataFrame(projetos)
-    df_valor_orcamento =df["valor_orcamento"]
-    df_valor_orcamento = df_valor_orcamento.dropna()
-    media_valor_orcamento = df_valor_orcamento.mean()
-    desvio_padrao_valor_orcamento = df_valor_orcamento.std()
-    st.metric(
-        label="Média de Valor do Orçamento",
-        value=f"R$ {media_valor_orcamento:,.2f}",
-        delta=f"± {desvio_padrao_valor_orcamento:,.2f}",
-        help="Média e desvio padrão dos valores de orçamento"
+    if df.empty:
+        valor_cartao = 0
+    else:
+        df_valor_orcamento =df["valor_orcamento"]
+        df_valor_orcamento = df_valor_orcamento.dropna()
+        media_valor_orcamento = df_valor_orcamento.mean()
+        desvio_padrao_valor_orcamento = df_valor_orcamento.std()
+        st.metric(
+            label="Média de Valor do Orçamento",
+            value=f"R$ {media_valor_orcamento:,.2f}",
+            delta=f"± {desvio_padrao_valor_orcamento:,.2f}",
+            help="Média e desvio padrão dos valores de orçamento"
     )
 
 
