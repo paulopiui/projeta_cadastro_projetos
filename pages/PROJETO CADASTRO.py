@@ -3,6 +3,7 @@ import streamlit as st
 import utils
 from conexao_supabase import supabase
 import time
+import streamlit.components.v1 as components
 
 # Configuração da Página e Cabeçalho
 utils.config_pagina()
@@ -117,8 +118,6 @@ opcoes_area_atuacao = [""] + sorted(consultar_banco_dados("tb_area_atuacao", "ar
 if "tipologia_opcoes" not in st.session_state:
     st.session_state.tipologia_opcoes = [""]
 
-#with st.form("cadastro_projeto"):
-
 if "area_atuacao_cad" not in st.session_state:
     st.session_state["area_atuacao_cad"] = opcoes_area_atuacao[0]
 if "tipologia_cad" not in st.session_state:
@@ -134,28 +133,28 @@ with col1:
         key="area_atuacao_cad",                        
         placeholder="Selecione a área de atuação",        
         on_change=on_change  # Atualiza a lista de tipologia ao mudar
-    )
-
-with st.form("cadastro_projeto"):
+    )    
         
-    with col2:    
+with col2:    
 
-        opcoes_tipologia = [""] + st.session_state.tipologia_opcoes                       
+    opcoes_tipologia = [""] + st.session_state.tipologia_opcoes                       
 
-        tipologia = st.selectbox("Tipologia*",
-            opcoes_tipologia,
-            key="tipologia_cad",        
-            placeholder="Selecione a tipologia")
-                
-    with col3:
-        modelo = st.text_input("Modelo*",
-                    key="modelo",
-                    placeholder="Modelo")
-        
-    with col4:
+    tipologia = st.selectbox("Tipologia*",
+        opcoes_tipologia,
+        key="tipologia_cad",        
+        placeholder="Selecione a tipologia")
+            
+with col3:
+    modelo = st.text_input("Modelo*",
+                key="modelo",
+                placeholder="Modelo")
+    
+with col4:
         #area = st.text_input("Área (m²)", value=0)  
         #area = trocar_ponto_virgula(area)    
         area = st.number_input("Área (m²)*")             
+
+with st.form("cadastro_projeto"):
 
     ### Colunas da SEGUNDA linha do formulário de cadastro        
     col5, col6, col7, col8, col9 = st.columns([0.2, 0.2, 0.1, 0.3, 0.2]) 
@@ -207,11 +206,39 @@ with st.form("cadastro_projeto"):
     with col14:
         anexo_planta = st.text_input("Anexo planta",
                                         placeholder="Anexo planta") 
+        
+    campos_obrigatorios = {
+        "Área de atuação": area_atuacao,
+        "Tipologia": tipologia,
+        "Modelo": modelo,
+        "Área": area,
+        "Valor orçamento": valor_orcamento,
+        "ID Projeto": id_clickup,
+        "Nome do projeto": nome_projeto,
+        "Contratante": contrato,
+        "Caminho de rede": caminho_rede,
+        "Disciplinas": disciplinas  # Lista!
+    }
+
+    # Verifica se há algum campo vazio ou inválido
+    erros = [nome for nome, valor in campos_obrigatorios.items() if valor in ("", [], None)]   
 
     ### Botão de cadastro
     submit = st.form_submit_button("Cadastrar")
 
     if submit:
+
+        if erros:
+                st.error(f"⚠️ Preencha os seguintes campos obrigatórios: {', '.join(erros)}")
+                st.stop()    
+
+        for nome, valor in campos_obrigatorios.items():
+            if nome == "Área" and valor <= 0:
+                st.error("A área deve ser maior que zero.")
+                st.stop()     
+            if nome == "Valor orçamento" and valor <= 0:
+                st.error("O valor do orçamento deve ser maior que zero.")
+                st.stop()        
 
         dt_ref_orcamento_str = dt_ref_orcamento.isoformat()       
 
