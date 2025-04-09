@@ -181,12 +181,6 @@ with col5:
         format="R$ %d") 
 
 
-#with col78:
-#    if st.button("Aplicar Filtros"):
-#         projetos=obter_projetos_filtrados(area_atuacao or None, tipologia or None, nome_projeto or None, modelo or None, valor_orcamento_min, valor_orcamento_max)
-#    else:
-#        projetos = []
-
 projetos=obter_projetos_filtrados(area_atuacao or None, tipologia or None, nome_projeto or None, modelo or None, valor_orcamento_min, valor_orcamento_max)
 
 ## TESTE DE MÉTRICA (CARTÃO) ###
@@ -196,6 +190,20 @@ with col77:
         value=len(projetos) if projetos else 0,        
         label_visibility="visible"
     )
+
+with col78:    
+    df = pd.DataFrame(projetos)
+    df_valor_orcamento =df["valor_orcamento"]
+    df_valor_orcamento = df_valor_orcamento.dropna()
+    media_valor_orcamento = df_valor_orcamento.mean()
+    desvio_padrao_valor_orcamento = df_valor_orcamento.std()
+    st.metric(
+        label="Média de Valor do Orçamento",
+        value=f"R$ {media_valor_orcamento:,.2f}",
+        delta=f"± {desvio_padrao_valor_orcamento:,.2f}",
+        help="Média e desvio padrão dos valores de orçamento"
+    )
+
 
 
 # Definição de colunas a serem exibidas e seus nomes personalizados

@@ -234,10 +234,10 @@ with st.form("cadastro_projeto"):
 
         for nome, valor in campos_obrigatorios.items():
             if nome == "Área" and valor <= 0:
-                st.error("A área deve ser maior que zero.")
+                st.error("⚠️  A área deve ser maior que zero.")
                 st.stop()     
             if nome == "Valor orçamento" and valor <= 0:
-                st.error("O valor do orçamento deve ser maior que zero.")
+                st.error("⚠️  O valor do orçamento deve ser maior que zero.")
                 st.stop()        
 
         dt_ref_orcamento_str = dt_ref_orcamento.isoformat()       
