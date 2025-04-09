@@ -3,3 +3,4 @@ streamlit
 supabase
 utils
 bcrypt
+load_dotenv
