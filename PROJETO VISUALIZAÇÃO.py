@@ -3,8 +3,6 @@ import streamlit as st
 import utils
 from conexao_supabase import supabase
 
-
-
 # Configuração da Página e Cabeçalho
 utils.config_pagina()
 utils.exibir_cabecalho()
