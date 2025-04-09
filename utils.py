@@ -18,7 +18,18 @@ def config_pagina():
         page_title="Grupo Projeta | Projetos",      
         page_icon="img/favicon2.png",
         layout="wide"
-    )  
+    )
+
+    hide_streamlit_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        </style>
+        """
+
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 
 def exibir_cabecalho_centralizado():
         
