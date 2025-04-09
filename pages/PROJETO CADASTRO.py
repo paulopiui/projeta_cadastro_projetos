@@ -104,6 +104,9 @@ def lista_opcoes_tipologia(area_atuacao):
 
     return lista_tipologias
 
+
+a = 2
+
 def on_change():
     st.session_state.tipologia_opcoes = lista_opcoes_tipologia(st.session_state.area_atuacao_cad)
 
