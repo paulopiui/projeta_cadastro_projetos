@@ -135,96 +135,98 @@ with col1:
         placeholder="Selecione a área de atuação",        
         on_change=on_change  # Atualiza a lista de tipologia ao mudar
     )
+
+with st.form(key="form_cadastro_projeto"):      
+
+    with col2:    
+
+        opcoes_tipologia = [""] + st.session_state.tipologia_opcoes                       
+
+        tipologia = st.selectbox("Tipologia*",
+            opcoes_tipologia,
+            key="tipologia_cad",        
+            placeholder="Selecione a tipologia")
+                
+    with col3:
+        modelo = st.text_input("Modelo*",
+                    key="modelo",
+                    placeholder="Modelo")
         
-with col2:    
+    with col4:
+        #area = st.text_input("Área (m²)", value=0)  
+        #area = trocar_ponto_virgula(area)    
+        area = st.number_input("Área (m²)*")             
 
-    opcoes_tipologia = [""] + st.session_state.tipologia_opcoes                       
+    ### Colunas da SEGUNDA linha do formulário de cadastro        
+    col5, col6, col7, col8, col9 = st.columns([0.2, 0.2, 0.1, 0.3, 0.2]) 
 
-    tipologia = st.selectbox("Tipologia*",
-        opcoes_tipologia,
-        key="tipologia_cad",        
-        placeholder="Selecione a tipologia")
+    with col5:
+        #valor_orcamento = st.text_input("Valor de orçamento", value=0) 
+        #valor_orcamento = trocar_ponto_virgula(valor_orcamento)   
+        valor_orcamento = st.number_input("Valor de orçamento*")       
+
+    with col6:
+        dt_ref_orcamento = st.date_input("Data de Ref. Orçamento*") 
+
+    with col7:
+        id_clickup = st.text_input("ID Projeto *",
+                                    placeholder="ID do projeto no clickup",                                 
+                                    key="id_projeto")
+                        
+    with col8:
+        nome_projeto = st.text_input("Nome do projeto*",
+                                        placeholder="Digite o nome do projeto")
+
+    with col9:
+        contrato = st.text_input("Contratante*",
+                                    placeholder="Digite o nome do contrato")
+
+    ### Colunas da TERCEIRA linha do formulário de cadastro
+    col10, col11, = st.columns([0.4, 0.6])
+
+    with col10:
+        caminho_rede = st.text_input("Caminho de rede*",
+                                placeholder="Caminho de rede")   
+        
+    with col11:
+        disciplinas = st.multiselect("Disciplinas*",
+                                sorted(opcoes_disciplinas),
+                                placeholder="Selecione as diciplinas aplicadas no projeto")       
+
+    col12, col13, col14 = st.columns([0.2, 0.4, 0.4])
+
+    with col12:
+        #valor_medicao = st.text_input("Valor da medição", value=0)      
+        #valor_medicao = trocar_ponto_virgula(valor_medicao)
+        valor_medicao = st.number_input("Valor da medição")
+
+    with col13:
+        anexo_3d = st.text_input("Anexo 3D",
+                                    placeholder="Anexo 3D")   
+        
+    with col14:
+        anexo_planta = st.text_input("Anexo planta",
+                                        placeholder="Anexo planta") 
+
+    ### Botão de cadastro
+    submit = st.form_submit_button("Cadastrar")
+
+    if submit:
+
+        dt_ref_orcamento_str = dt_ref_orcamento.isoformat()       
+
+        response = cadastrar_projeto(id_clickup,contrato,nome_projeto,tipologia,
+                                        modelo,valor_orcamento,dt_ref_orcamento_str,area,valor_medicao,
+                                        caminho_rede,anexo_3d,anexo_planta,disciplinas)
+        
+        if "erro" in response:
+                st.error(response["erro"])
+        else: 
+            st.success("✅  Projeto cadastrado com sucesso!")
             
-with col3:
-    modelo = st.text_input("Modelo*",
-                key="modelo",
-                placeholder="Modelo")
-    
-with col4:
-    #area = st.text_input("Área (m²)", value=0)  
-    #area = trocar_ponto_virgula(area)    
-    area = st.number_input("Área (m²)*")             
+            time.sleep(2)
 
-### Colunas da SEGUNDA linha do formulário de cadastro        
-col5, col6, col7, col8, col9 = st.columns([0.2, 0.2, 0.1, 0.3, 0.2]) 
-
-with col5:
-    #valor_orcamento = st.text_input("Valor de orçamento", value=0) 
-    #valor_orcamento = trocar_ponto_virgula(valor_orcamento)   
-    valor_orcamento = st.number_input("Valor de orçamento*")       
-
-with col6:
-    dt_ref_orcamento = st.date_input("Data de Ref. Orçamento*") 
-
-with col7:
-    id_clickup = st.text_input("ID Projeto *",
-                                placeholder="ID do projeto no clickup",                                 
-                                key="id_projeto")
-                    
-with col8:
-    nome_projeto = st.text_input("Nome do projeto*",
-                                    placeholder="Digite o nome do projeto")
-
-with col9:
-    contrato = st.text_input("Contratante*",
-                                placeholder="Digite o nome do contrato")
-
-### Colunas da TERCEIRA linha do formulário de cadastro
-col10, col11, = st.columns([0.4, 0.6])
-
-with col10:
-    caminho_rede = st.text_input("Caminho de rede*",
-                            placeholder="Caminho de rede")   
-    
-with col11:
-    disciplinas = st.multiselect("Disciplinas*",
-                            sorted(opcoes_disciplinas),
-                            placeholder="Selecione as diciplinas aplicadas no projeto")       
-
-col12, col13, col14 = st.columns([0.2, 0.4, 0.4])
-
-with col12:
-    #valor_medicao = st.text_input("Valor da medição", value=0)      
-    #valor_medicao = trocar_ponto_virgula(valor_medicao)
-    valor_medicao = st.number_input("Valor da medição")
-
-with col13:
-    anexo_3d = st.text_input("Anexo 3D",
-                                placeholder="Anexo 3D")   
-    
-with col14:
-    anexo_planta = st.text_input("Anexo planta",
-                                    placeholder="Anexo planta") 
-
-### Botão de cadastro
-submit = st.button("Cadastrar")
-
-if submit:
-
-    dt_ref_orcamento_str = dt_ref_orcamento.isoformat()       
-
-    response = cadastrar_projeto(id_clickup,contrato,nome_projeto,tipologia,
-                                    modelo,valor_orcamento,dt_ref_orcamento_str,area,valor_medicao,
-                                    caminho_rede,anexo_3d,anexo_planta,disciplinas)
-    
-    if "erro" in response:
-            st.error(response["erro"])
-    else: 
-        st.success("✅  Projeto cadastrado com sucesso!")
-        
-        time.sleep(2)
-
-        # JavaScript para recarregar a pagina
-        st.markdown('<meta http-equiv="refresh" content="1">', unsafe_allow_html=True)
+            # JavaScript para recarregar a pagina
+            st.markdown('<meta http-equiv="refresh" content="1">', unsafe_allow_html=True)
         
         
