@@ -173,11 +173,14 @@ with col5:
     lista_valores_orcamento = obter_opcoes_filtro("tb_projetos", "valor_orcamento", area_atuacao=None, tipologia=None, nome_projeto=None, modelo= None)
     lista_valores_orcamento.sort(reverse=True)
 
+    max_value=lista_valores_orcamento[0] if lista_valores_orcamento else 1,
+
     valor_orcamento_min, valor_orcamento_max = st.slider(
         "Valor do Orçamento",
         min_value=0,
-        max_value=lista_valores_orcamento[0] if lista_valores_orcamento else 1000000,
-        value=(0, lista_valores_orcamento[0] if lista_valores_orcamento else 1000000),
+        max_value=10000000,    
+        value=(0, 1000000),    
+        step=1000,
         format="R$ %d") 
 
 
