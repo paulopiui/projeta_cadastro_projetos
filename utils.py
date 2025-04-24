@@ -6,6 +6,7 @@ def config_pagina():
         page_title="Grupo Projeta | Projetos",      
         page_icon="img/favicon2.png",
         layout="wide"
+
     )
 
     # Configuração para ocultar menu do streamlit
@@ -19,6 +20,7 @@ def config_pagina():
 
     st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+
 def exibir_cabecalho():
     
     col1, col2, col3 = st.columns([0.2, 0.1 ,0.6])
@@ -31,6 +33,7 @@ def exibir_cabecalho():
 
     st.divider()
     
+
 def criptografar_senha(senha):    
 
     hashed = bcrypt.hashpw(senha.encode(), bcrypt.gensalt()).decode()

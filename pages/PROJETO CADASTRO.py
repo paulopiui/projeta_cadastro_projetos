@@ -137,7 +137,8 @@ with col1:
         
 with col2:    
 
-    opcoes_tipologia = [""] + st.session_state.tipologia_opcoes                       
+
+with st.form(key="form_cadastro_projeto"):      
 
     tipologia = st.selectbox("Tipologia*",
         opcoes_tipologia,
@@ -150,11 +151,14 @@ with col3:
                 placeholder="Modelo")
     
 with col4:
+
         #area = st.text_input("Área (m²)", value=0)  
         #area = trocar_ponto_virgula(area)    
         area = st.number_input("Área (m²)*")             
 
+
 with st.form("cadastro_projeto"):
+
 
     ### Colunas da SEGUNDA linha do formulário de cadastro        
     col5, col6, col7, col8, col9 = st.columns([0.2, 0.2, 0.1, 0.3, 0.2]) 
@@ -191,6 +195,7 @@ with st.form("cadastro_projeto"):
         disciplinas = st.multiselect("Disciplinas*",
                                 sorted(opcoes_disciplinas),
                                 placeholder="Selecione as diciplinas aplicadas no projeto")       
+
 
     col12, col13, col14 = st.columns([0.2, 0.4, 0.4])
 
@@ -245,6 +250,9 @@ with st.form("cadastro_projeto"):
         response = cadastrar_projeto(id_clickup,contrato,nome_projeto,tipologia,
                                         modelo,valor_orcamento,dt_ref_orcamento_str,area,valor_medicao,
                                         caminho_rede,anexo_3d,anexo_planta,disciplinas)
+
+
+    
         
         if "erro" in response:
                 st.error(response["erro"])
