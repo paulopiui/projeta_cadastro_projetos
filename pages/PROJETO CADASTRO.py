@@ -135,10 +135,9 @@ with col1:
         on_change=on_change  # Atualiza a lista de tipologia ao mudar
     )    
         
-with col2:    
+with col2:   
 
-
-with st.form(key="form_cadastro_projeto"):      
+    opcoes_tipologia = [""] + st.session_state.tipologia_opcoes   
 
     tipologia = st.selectbox("Tipologia*",
         opcoes_tipologia,
