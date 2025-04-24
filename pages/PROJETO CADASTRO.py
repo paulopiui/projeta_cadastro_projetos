@@ -137,13 +137,13 @@ with col1:
         
 with col2:    
 
+    with st.form(key="form_cadastro_projeto"):      
 
-with st.form(key="form_cadastro_projeto"):      
-
-    tipologia = st.selectbox("Tipologia*",
-        opcoes_tipologia,
-        key="tipologia_cad",        
-        placeholder="Selecione a tipologia")
+        tipologia = st.selectbox("Tipologia*",
+                                 tipologia_opcoes,
+                                 key="tipologia_cad",
+                                 placeholder="Selecione a tipologia"
+                                 )
             
 with col3:
     modelo = st.text_input("Modelo*",
