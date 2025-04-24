@@ -259,4 +259,4 @@ elif projetos:
             st.success("Alterações salvas!")
 
 else:
-    st.info("Nenhum projeto encontrado.")
+    st.info("ℹ️  Nenhum projeto encontrado.")
