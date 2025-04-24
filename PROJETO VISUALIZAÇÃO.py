@@ -179,7 +179,7 @@ with col5:
         "Valor do Orçamento",
         min_value=0,
         max_value=10000000,    
-        value=(0, 1000000),    
+        value=(0, max_value),    
         step=1000,
         format="R$ %d") 
 
