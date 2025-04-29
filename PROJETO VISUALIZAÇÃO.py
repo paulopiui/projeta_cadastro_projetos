@@ -167,6 +167,7 @@ with col4:
         "Modelo",
         [""] + obter_opcoes_filtro("tb_projetos","modelo", area_atuacao=area_atuacao if area_atuacao else None, tipologia=tipologia if tipologia else None)
         )
+    
 
 with col5:
 

@@ -135,9 +135,11 @@ with col1:
         on_change=on_change  # Atualiza a lista de tipologia ao mudar
     )    
         
-with col2:    
-    
-    opcoes_tipologia = [""] + st.session_state.tipologia_opcoes       
+
+with col2:   
+
+    opcoes_tipologia = [""] + st.session_state.tipologia_opcoes   
+
 
     tipologia = st.selectbox("Tipologia*",
                                 opcoes_tipologia,
