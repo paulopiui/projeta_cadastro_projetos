@@ -135,14 +135,17 @@ with col1:
         on_change=on_change  # Atualiza a lista de tipologia ao mudar
     )    
         
+
 with col2:   
 
     opcoes_tipologia = [""] + st.session_state.tipologia_opcoes   
 
+
     tipologia = st.selectbox("Tipologia*",
-        opcoes_tipologia,
-        key="tipologia_cad",        
-        placeholder="Selecione a tipologia")
+                                opcoes_tipologia,
+                                key="tipologia_cad",
+                                placeholder="Selecione a tipologia"
+                                )
             
 with col3:
     modelo = st.text_input("Modelo*",
